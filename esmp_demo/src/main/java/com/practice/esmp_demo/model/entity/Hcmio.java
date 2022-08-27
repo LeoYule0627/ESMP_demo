@@ -29,21 +29,21 @@ public class Hcmio {
     @Column(name = "Stock")
     private String stock;
     @Column(name = "BsType")
-    private String bsType;
+    private char bsType;
     @Column(name = "Price")
-    private String price;
+    private double price;
     @Column(name = "Qty")
-    private String qty;
+    private int qty;
     @Column(name = "Amt")
-    private String amt;
+    private double amt;
     @Column(name = "Fee")
-    private String fee;
+    private int fee;
     @Column(name = "Tax")
-    private String tax;
+    private int tax;
     @Column(name = "StinTax")
-    private String stinTax;
+    private int stinTax;
     @Column(name = "NetAmt")
-    private String netAmt;
+    private double netAmt;
     @Column(name = "ModDate")
     private String modDate;
     @Column(name = "ModTime")

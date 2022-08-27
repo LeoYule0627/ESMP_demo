@@ -40,21 +40,4 @@ public class PracticeController {
             return response;
     }
 
-    @GetMapping("/tcnud")
-    public List<Tcnud> getTcnudAll(){
-        List<Tcnud> response = practiceService.getTcnudAll();
-        return response;
-    }
-
-    @GetMapping("/mstmb")
-    public List<Mstmb> getMstmbAll(){
-        List<Mstmb> response = practiceService.getMstmbAll();
-        return response;
-    }
-
-    @GetMapping("/hcmio")
-    public List<Hcmio> getHcmioAll(){
-        List<Hcmio> response = practiceService.getHcmioAll();
-        return response;
-    }
 }

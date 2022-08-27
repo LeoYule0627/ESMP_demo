@@ -18,29 +18,9 @@ import java.util.Map;
 public class PracticeService {
     @Autowired
     TestRepository testRepository;
-    @Autowired
-    TcnudRepository tcnudRepository;
-    @Autowired
-    MstmbRepository mstmbRepository;
-    @Autowired
-    HcmioRepository hcmioRepository;
 
     public List<Map<String, String>> getAll() {
         List<Map<String, String>> response = testRepository.getAll();
-        return response;
-    }
-
-    public List<Tcnud> getTcnudAll(){
-        List<Tcnud> response = tcnudRepository.findAll();
-        return response;
-    }
-
-    public List<Mstmb> getMstmbAll(){
-        List<Mstmb> response = mstmbRepository.findAll();
-        return response;
-    }
-    public List<Hcmio> getHcmioAll(){
-        List<Hcmio> response = hcmioRepository.findAll();
         return response;
     }
 
