@@ -23,7 +23,7 @@ public class MstmbController {
         return response;
     }
 
-    @PostMapping("/update/{stock}")
+    @PutMapping("/update/{stock}")
     public String updateMstmb(@PathVariable String stock, @RequestBody UpdateMstmb updateMstmb) {
         String response = this.mstmbService.updateMstmb(stock, updateMstmb);
         return response;
