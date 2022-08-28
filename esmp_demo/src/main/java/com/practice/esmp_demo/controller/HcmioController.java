@@ -3,6 +3,7 @@ package com.practice.esmp_demo.controller;
 import com.practice.esmp_demo.controller.dto.CreateHcmio;
 import com.practice.esmp_demo.model.entity.Hcmio;
 import com.practice.esmp_demo.service.HcmioService;
+import com.practice.esmp_demo.service.TcnudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class HcmioController {
 
     @PostMapping("/create")
     public String createHcmio(@RequestBody CreateHcmio createHcmio){
-        String response = this.hcmioService.createHcmio(createHcmio);
-        return response;
+        String hcmioResponse = this.hcmioService.createHcmio(createHcmio);
+        return hcmioResponse;
     }
 }

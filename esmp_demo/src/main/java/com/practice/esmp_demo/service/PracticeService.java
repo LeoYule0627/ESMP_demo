@@ -1,5 +1,6 @@
 package com.practice.esmp_demo.service;
 
+import com.practice.esmp_demo.controller.dto.Search;
 import com.practice.esmp_demo.model.HcmioRepository;
 import com.practice.esmp_demo.model.MstmbRepository;
 import com.practice.esmp_demo.model.TcnudRepository;
@@ -19,8 +20,8 @@ public class PracticeService {
     @Autowired
     TestRepository testRepository;
 
-    public List<Map<String, String>> getAll() {
-        List<Map<String, String>> response = testRepository.getAll();
+    public List<Map<String, String>> getAll(Search request) {
+        List<Map<String, String>> response = testRepository.getAll(request.getBranchNo(), request.getCustSeq());
         return response;
     }
 

@@ -1,5 +1,6 @@
 package com.practice.esmp_demo.controller;
 
+import com.practice.esmp_demo.controller.dto.Search;
 import com.practice.esmp_demo.model.entity.Hcmio;
 import com.practice.esmp_demo.model.entity.Mstmb;
 import com.practice.esmp_demo.model.entity.Tcnud;
@@ -35,8 +36,8 @@ public class PracticeController {
 //    }
 
     @GetMapping()
-    public List<Map<String, String>> getAll(){
-        List<Map<String, String>> response = practiceService.getAll();
+    public List<Map<String, String>> getAll(@RequestBody Search search){
+        List<Map<String, String>> response = practiceService.getAll(search);
             return response;
     }
 
