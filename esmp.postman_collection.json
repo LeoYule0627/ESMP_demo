@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "b3f714f0-7860-4116-bae8-38d976f68a8d",
+		"name": "zzz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22480602"
+	},
+	"item": [
+		{
+			"name": "tcnud",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tcnud",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tcnud"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mstmb",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/mstmb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mstmb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hcmio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/hcmio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"hcmio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"branchNo\": \"F62W\",\r\n    \"custSeq\":  \"02\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create HCMIO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tradeDate\": \"20220801\",\r\n    \"branchNo\": \"F62W\",\r\n    \"custSeq\": \"02\",\r\n    \"docSeq\": \"BB099\",\r\n    \"stock\": \"2357\",\r\n    \"bsType\": \"B\",\r\n    \"price\": 200.0,\r\n    \"qty\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/hcmio/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"hcmio",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update mstmb",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"curPrice\": 81.1000\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mstmb/update/:Stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mstmb",
+						"update",
+						":Stock"
+					],
+					"variable": [
+						{
+							"key": "Stock",
+							"value": "2376"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -3,7 +3,10 @@ package com.practice.esmp_demo.model.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import java.io.Serializable;
 
 @Getter
@@ -42,6 +45,7 @@ public class Tcnud {
     @Column(name = "ModUser")
     private String modUser;
 }
+
 class TcnudId implements Serializable {
     private String tradeDate;
     private String branchNo;
