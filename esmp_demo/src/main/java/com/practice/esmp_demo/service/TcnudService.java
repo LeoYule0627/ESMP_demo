@@ -1,19 +1,12 @@
 package com.practice.esmp_demo.service;
 
-import com.practice.esmp_demo.controller.dto.CreateHcmio;
+import com.practice.esmp_demo.controller.dto.AddHcmioAndTcnud;
 import com.practice.esmp_demo.model.TcnudRepository;
-import com.practice.esmp_demo.model.entity.Hcmio;
 import com.practice.esmp_demo.model.entity.Tcnud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.text.DateFormat;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,37 +14,43 @@ public class TcnudService {
 
     @Autowired
     TcnudRepository tcnudRepository;
+    @Autowired
+    Calculate calculate;
 
     public List<Tcnud> getTcnudAll() {
         List<Tcnud> response = tcnudRepository.findAll();
         return response;
     }
 
-    public String createTcnud(Hcmio requset) {
+    public boolean createTcnud(AddHcmioAndTcnud request) {
         try {
             Tcnud createTcnud = new Tcnud();
-            createTcnud.setTradeDate(requset.getTradeDate());
-            createTcnud.setBranchNo(requset.getBranchNo());
-            createTcnud.setCustSeq(requset.getCustSeq());
-            createTcnud.setDocSeq(requset.getDocSeq());
-            createTcnud.setStock(requset.getStock());
-            createTcnud.setPrice(requset.getPrice());
-            createTcnud.setQty(requset.getQty());
-            int remainQty = this.tcnudRepository.findByRemainQty(
-                    createTcnud.getTradeDate(), createTcnud.getBranchNo(), createTcnud.getCustSeq(), createTcnud.getStock());
-            createTcnud.setRemainQty(remainQty + createTcnud.getQty());
-            createTcnud.setFee(requset.getFee());
-            createTcnud.setCost(Math.abs(requset.getNetAmt()));
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            Calendar c1 = Calendar.getInstance();
-            createTcnud.setModDate(dateFormat.format(c1.getTime()));
-            Format timeFormat = new SimpleDateFormat("HHmmss");
-            createTcnud.setModTime(timeFormat.format(new Date()));
-            createTcnud.setModUser(requset.getModUser());
+            createTcnud.setTradeDate(request.getTradeDate());
+            createTcnud.setBranchNo(request.getBranchNo());
+            createTcnud.setCustSeq(request.getCustSeq());
+            createTcnud.setDocSeq(request.getDocSeq());
+            createTcnud.setStock(request.getStock());
+            createTcnud.setPrice(request.getPrice());
+            createTcnud.setQty(request.getQty());
+
+            Tcnud check = this.tcnudRepository.findByBranchNoAndCustSeqAndStock(
+                    createTcnud.getBranchNo(), createTcnud.getCustSeq(), createTcnud.getStock());
+            if (check == null) {
+                createTcnud.setRemainQty(0 + createTcnud.getQty());
+            } else {
+                createTcnud.setRemainQty(check.getRemainQty() + createTcnud.getQty());
+            }
+
+            calculate.set(createTcnud.getQty(), createTcnud.getPrice());
+            createTcnud.setFee(calculate.getFee());
+            createTcnud.setCost(Math.abs(calculate.getNetAmt()));
+            createTcnud.setModDate(calculate.getModDate());
+            createTcnud.setModTime(calculate.getModTime());
+            createTcnud.setModUser(request.getModUser());
             this.tcnudRepository.save(createTcnud);
-            return "OK";
+            return true;
         } catch (Exception e) {
-            return "FAIL";
+            return false;
         }
     }
 }

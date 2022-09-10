@@ -1,13 +1,22 @@
 package com.practice.esmp_demo.controller.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Search {
+    @NotEmpty
+    @Length(min = 4, max = 4, message = "不足四碼")
     private String branchNo;
+    @NotEmpty
+    @Length(min = 2, max = 2, message = "不足兩碼")
     private String custSeq;
+
+    private String stock;
 }

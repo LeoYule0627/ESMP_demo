@@ -2,20 +2,23 @@ package com.practice.esmp_demo.controller.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreateHcmio {
+public class AddHcmioAndTcnud {
+    @NotNull
+    @Pattern(regexp="^{8}$",message = "日期格式yyyyMMdd")
     private String tradeDate;
     private String BranchNo;
     private String CustSeq;
     private String DocSeq;
     private String Stock;
-    private char BsType;
     private double Price;
     private int Qty;
     private String modDate;

@@ -8,11 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
-@IdClass(TcnudId.class)
+@IdClass(PrimaryId.class)
 public class Tcnud {
     @Id
     @Column(name = "TradeDate")
@@ -31,11 +32,11 @@ public class Tcnud {
     @Column(name = "Price")
     private double price;
     @Column(name = "Qty")
-    private double qty;
+    private int qty;
     @Column(name = "RemainQty")
-    private double remainQty;
+    private int remainQty;
     @Column(name = "Fee")
-    private double fee;
+    private int fee;
     @Column(name = "Cost")
     private double cost;
     @Column(name = "ModDate")
@@ -44,11 +45,4 @@ public class Tcnud {
     private String modTime;
     @Column(name = "ModUser")
     private String modUser;
-}
-
-class TcnudId implements Serializable {
-    private String tradeDate;
-    private String branchNo;
-    private String custSeq;
-    private String docSeq;
 }

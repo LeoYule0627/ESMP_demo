@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@IdClass(HcmioId.class)
+@IdClass(PrimaryId.class)
 public class Hcmio {
     @Id
     @Column(name = "TradeDate")
@@ -50,11 +50,4 @@ public class Hcmio {
     private String modTime;
     @Column(name = "ModUser")
     private String modUser;
-}
-
-class HcmioId implements Serializable {
-    private String tradeDate;
-    private String branchNo;
-    private String custSeq;
-    private String docSeq;
 }

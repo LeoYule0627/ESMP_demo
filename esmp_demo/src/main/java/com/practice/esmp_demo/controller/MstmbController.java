@@ -11,7 +11,7 @@ import java.util.List;
 
 @Controller
 @RestController
-@RequestMapping("/api/mstmb")
+@RequestMapping("/api/v1/mstmb")
 public class MstmbController {
 
     @Autowired
