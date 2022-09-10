@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -16,14 +17,10 @@ public class HcmioService {
     @Autowired
     Calculate calculate;
 
-
-    public List<Hcmio> getHcmioAll() {
-        List<Hcmio> response = hcmioRepository.findAll();
-        return response;
-    }
-
     public boolean createHcmio(AddHcmioAndTcnud request) {
         try {
+            BigDecimal price = request.getPrice();
+            BigDecimal qty = BigDecimal.valueOf(request.getQty());
             Hcmio createHcmio = new Hcmio();
             createHcmio.setTradeDate(request.getTradeDate());
             createHcmio.setBranchNo(request.getBranchNo());
@@ -31,18 +28,19 @@ public class HcmioService {
             createHcmio.setDocSeq(request.getDocSeq());
             createHcmio.setStock(request.getStock());
             createHcmio.setBsType('B');
-            createHcmio.setPrice(request.getPrice());
+            createHcmio.setPrice(price);
             createHcmio.setQty(request.getQty());
 
-            calculate.set(createHcmio.getQty(), createHcmio.getPrice());
-            createHcmio.setAmt(calculate.getAmt());
-            createHcmio.setFee(calculate.getFee());
+            createHcmio.setAmt(calculate.getAmt(qty, price));
+            createHcmio.setFee(calculate.getFee(qty, price));
 
             if (createHcmio.getBsType() == 'S') {
-                createHcmio.setTax(calculate.getTax());
+                createHcmio.setTax(calculate.getTax(qty, price));
+            } else {
+                createHcmio.setTax(BigDecimal.valueOf(0));
             }
 
-            createHcmio.setNetAmt(calculate.getNetAmt());
+            createHcmio.setNetAmt(calculate.getNetAmt(qty, price, createHcmio.getBsType()));
             createHcmio.setModDate(calculate.getModDate());
             createHcmio.setModTime(calculate.getModTime());
             createHcmio.setModUser(request.getModUser());

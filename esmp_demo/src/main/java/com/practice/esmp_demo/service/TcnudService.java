@@ -5,8 +5,8 @@ import com.practice.esmp_demo.model.TcnudRepository;
 import com.practice.esmp_demo.model.entity.Tcnud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -17,33 +17,29 @@ public class TcnudService {
     @Autowired
     Calculate calculate;
 
-    public List<Tcnud> getTcnudAll() {
-        List<Tcnud> response = tcnudRepository.findAll();
-        return response;
-    }
-
     public boolean createTcnud(AddHcmioAndTcnud request) {
         try {
+            BigDecimal price = request.getPrice();
+            BigDecimal qty = BigDecimal.valueOf(request.getQty());
             Tcnud createTcnud = new Tcnud();
             createTcnud.setTradeDate(request.getTradeDate());
             createTcnud.setBranchNo(request.getBranchNo());
             createTcnud.setCustSeq(request.getCustSeq());
             createTcnud.setDocSeq(request.getDocSeq());
             createTcnud.setStock(request.getStock());
-            createTcnud.setPrice(request.getPrice());
+            createTcnud.setPrice(price);
             createTcnud.setQty(request.getQty());
 
-            Tcnud check = this.tcnudRepository.findByBranchNoAndCustSeqAndStock(
+            Tcnud lastOne = this.tcnudRepository.findLastOne(
                     createTcnud.getBranchNo(), createTcnud.getCustSeq(), createTcnud.getStock());
-            if (check == null) {
+            if (lastOne == null) {
                 createTcnud.setRemainQty(0 + createTcnud.getQty());
             } else {
-                createTcnud.setRemainQty(check.getRemainQty() + createTcnud.getQty());
+                createTcnud.setRemainQty(lastOne.getRemainQty() + createTcnud.getQty());
             }
 
-            calculate.set(createTcnud.getQty(), createTcnud.getPrice());
-            createTcnud.setFee(calculate.getFee());
-            createTcnud.setCost(Math.abs(calculate.getNetAmt()));
+            createTcnud.setFee(calculate.getFee(qty, price));
+            createTcnud.setCost(calculate.getCost(qty, price));
             createTcnud.setModDate(calculate.getModDate());
             createTcnud.setModTime(calculate.getModTime());
             createTcnud.setModUser(request.getModUser());

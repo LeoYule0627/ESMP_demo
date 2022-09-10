@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -19,9 +20,9 @@ public class Mstmb {
     @Column(name = "MarketType")
     private String marketType;
     @Column(name = "CurPrice")
-    private double curPrice;
+    private BigDecimal curPrice;
     @Column(name = "RefPrice")
-    private double refPrice;
+    private BigDecimal refPrice;
     @Column(name = "Currency")
     private String currency;
     @Column(name = "ModDate")

@@ -18,6 +18,9 @@ public class MstmbService {
     @Autowired
     MstmbRepository mstmbRepository;
 
+    @Autowired
+    Calculate calculate;
+
     public List<Mstmb> getMstmbAll() {
         List<Mstmb> response = mstmbRepository.findAll();
         return response;
@@ -26,13 +29,9 @@ public class MstmbService {
     public String updateMstmb(String stock, UpdateMstmb request) {
         try {
             Mstmb updateMstmb = this.mstmbRepository.findAllByStock(stock);
-            System.out.println(request.getCurPrice());
             updateMstmb.setCurPrice(request.getCurPrice());
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            Calendar c1 = Calendar.getInstance();
-            updateMstmb.setModDate(dateFormat.format(c1.getTime()));
-            Format timeFormat = new SimpleDateFormat("HHmmss");
-            updateMstmb.setModTime(timeFormat.format(new Date()));
+            updateMstmb.setModDate(calculate.getModDate());
+            updateMstmb.setModTime(calculate.getModTime());
             this.mstmbRepository.save(updateMstmb);
             return "OK";
         } catch (Exception e) {

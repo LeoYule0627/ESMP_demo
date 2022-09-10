@@ -7,10 +7,9 @@ import java.util.List;
 public class UnrealResponse {
 
 
-
     public static LinkedHashMap setUnrealResponse(List<LinkedHashMap> response, String responseCode, String message) {
         LinkedHashMap object = new LinkedHashMap<>();
-        if(response==null){
+        if (response == null) {
             response = new ArrayList<>();
         }
         object.put("resultList", response);

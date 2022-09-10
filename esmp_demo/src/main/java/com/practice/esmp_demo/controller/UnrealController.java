@@ -9,16 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.LinkedHashMap;
-import java.util.stream.Collectors;
 
 @Controller
 @RestController
@@ -31,44 +27,55 @@ public class UnrealController {
 
     @PostMapping("/detail")
     public ResponseEntity<LinkedHashMap> unrealDetail(@RequestBody @Valid Search search) {
+        LinkedHashMap response;
         try {
-            LinkedHashMap response = unrealService.unrealDetail(search);
+            response = unrealService.unrealDetail(search);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(response);
         } catch (Exception e) {
             System.out.println(e);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found ^^");
+            response = UnrealResponse.setUnrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(response);
         }
     }
 
 
     @PostMapping("/sum")
-    public ResponseEntity<LinkedHashMap> unrealSum(@RequestBody @Validated Search search) {
+    public ResponseEntity<LinkedHashMap> unrealSum(@RequestBody @Valid Search search) {
+        LinkedHashMap response;
         try {
-            LinkedHashMap response = unrealService.unrealSum(search);
+            response = unrealService.unrealSum(search);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(response);
         } catch (Exception e) {
             System.out.println(e);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found ^^");
+            response = UnrealResponse.setUnrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(response);
         }
     }
 
     @PostMapping("/add")
-    public ResponseEntity<LinkedHashMap> unrealAdd(@RequestBody AddHcmioAndTcnud request) {
+    public ResponseEntity<LinkedHashMap> unrealAdd(@RequestBody @Valid AddHcmioAndTcnud request) {
+        LinkedHashMap response;
         try {
-            LinkedHashMap response = unrealService.unrealAdd(request);
+            response = unrealService.unrealAdd(request);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(response);
         } catch (Exception e) {
             System.out.println(e);
-            LinkedHashMap response = UnrealResponse.setUnrealResponse(null, "001", "gg");
+            response = UnrealResponse.setUnrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
@@ -82,8 +89,9 @@ public class UnrealController {
         exception.getBindingResult().getAllErrors().stream().forEach(objectError -> sb.append(objectError.getDefaultMessage()).append(", "));
         LinkedHashMap response = UnrealResponse.setUnrealResponse(null, "002", sb.toString());
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
+
 }

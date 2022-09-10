@@ -12,8 +12,8 @@ import java.util.Map;
 public interface TestRepository extends JpaRepository<Hcmio, Integer> {
     @Query(value = "SELECT t.TradeDate, t.DocSeq, t.Stock, m.StockName, CAST(t.Price AS DECIMAL(10,2)) AS BuyPrice, CAST(m.CurPrice AS DECIMAL(10,2)) AS NowPrice, t.Qty, t.RemainQty, t.Fee\n" +
             "\t, CAST(t.Cost AS DECIMAL(16,0)) AS Cost\n" +
-            "\t,CAST((m.CurPrice * t.Qty) - ROUND((m.CurPrice * t.Qty) * 0.003) - ROUND((m.CurPrice * t.Qty) * 0.001425) AS DECIMAL(16,0)) AS MarketValue\n "+
-            "\t,CAST(((m.CurPrice * t.Qty) - ROUND((m.CurPrice * t.Qty) * 0.003) - ROUND((m.CurPrice * t.Qty) * 0.001425) - t.Cost) AS DECIMAL(16,0)) AS UnrealProfit\n" +
+            "\t,CAST((m.CurPrice * t.Qty) - FLOOR((m.CurPrice * t.Qty) * 0.003) - FLOOR((m.CurPrice * t.Qty) * 0.001425) AS DECIMAL(16,0)) AS MarketValue\n "+
+            "\t,CAST(((m.CurPrice * t.Qty) - FLOOR((m.CurPrice * t.Qty) * 0.003) - FLOOR((m.CurPrice * t.Qty) * 0.001425) - t.Cost) AS DECIMAL(16,0)) AS UnrealProfit\n" +
             "FROM tcnud AS t INNER JOIN mstmb AS m ON t.Stock=m.Stock\n" +
             "WHERE t.BranchNo=?1 AND t.CustSeq=?2 AND t.Stock=?3", nativeQuery = true)
     List<Map> getUnrealDetail(String branchNo, String custSeq, String stock);
@@ -24,10 +24,11 @@ public interface TestRepository extends JpaRepository<Hcmio, Integer> {
             "WHERE t.BranchNo=?1 AND t.CustSeq=?2", nativeQuery = true)
     List<Map> getUnrealDetail(String branchNo, String custSeq);
 
-    @Query(value = "SELECT t.Stock, m.StockName, CAST(m.CurPrice AS DECIMAL(10,2)) AS NowPrice, (SELECT remainQty FROM tcnud WHERE stock=?3 ORDER BY ModDate DESC,ModTime DESC LIMIT 1) AS SumRemainQty, SUM(t.Fee) AS SumFee\n" +
+    @Query(value = "SELECT t.Stock, m.StockName, CAST(m.CurPrice AS DECIMAL(10,2)) AS NowPrice\n" +
+            "\t, (SELECT remainQty FROM tcnud WHERE stock=?3 ORDER BY ModDate DESC,ModTime DESC LIMIT 1) AS SumRemainQty, SUM(t.Fee) AS SumFee\n" +
             "\t, SUM(CAST(t.Cost AS DECIMAL(16,0))) AS SumCost\n" +
-            "\t, SUM(CAST((m.CurPrice * t.Qty) - ROUND((m.CurPrice * t.Qty) * 0.003) - ROUND((m.CurPrice * t.Qty) * 0.001425) AS DECIMAL(16,0))) AS SumMarketValue\n" +
-            "\t, SUM(CAST(((m.CurPrice * t.Qty) - ROUND((m.CurPrice * t.Qty) * 0.003) - ROUND((m.CurPrice * t.Qty) * 0.001425) - t.Cost) AS DECIMAL(16,0))) AS SumUnrealProfit\n" +
+            "\t, SUM(CAST((m.CurPrice * t.Qty) - FLOOR((m.CurPrice * t.Qty) * 0.003) - FLOOR((m.CurPrice * t.Qty) * 0.001425) AS DECIMAL(16,0))) AS SumMarketValue\n" +
+            "\t, SUM(CAST(((m.CurPrice * t.Qty) - FLOOR((m.CurPrice * t.Qty) * 0.003) - FLOOR((m.CurPrice * t.Qty) * 0.001425) - t.Cost) AS DECIMAL(16,0))) AS SumUnrealProfit\n" +
             "FROM tcnud AS t INNER JOIN mstmb AS m ON t.Stock=m.Stock\n" +
             "WHERE t.BranchNo=?1 AND t.CustSeq=?2 AND t.Stock=?3",nativeQuery = true)
     List<Map> getUnrealSum(String branchNo, String custSeq, String stock);
@@ -38,8 +39,10 @@ public interface TestRepository extends JpaRepository<Hcmio, Integer> {
 
     @Query(value = "SELECT t.TradeDate, t.DocSeq, t.Stock, m.StockName, CAST(t.Price AS DECIMAL(10,2)) AS BuyPrice, CAST(m.CurPrice AS DECIMAL(10,2)) AS NowPrice, t.Qty, t.RemainQty, t.Fee\n" +
             "\t, CAST(t.Cost AS DECIMAL(16,0)) AS Cost\n" +
-            "   FROM tcnud AS t INNER JOIN mstmb AS m ON t.Stock=m.Stock\n" +
-            "   WHERE t.BranchNo=?1 AND t.CustSeq=?2 AND t.TradeDate=?3 AND t.DocSeq=?4", nativeQuery = true)
+            "\t, CAST((m.CurPrice * t.Qty) - FLOOR((m.CurPrice * t.Qty) * 0.003) - FLOOR((m.CurPrice * t.Qty) * 0.001425) AS DECIMAL(16,0)) AS MarketValue\n" +
+            "\t, CAST(((m.CurPrice * t.Qty) - FLOOR((m.CurPrice * t.Qty) * 0.003) - FLOOR((m.CurPrice * t.Qty) * 0.001425) - t.Cost) AS DECIMAL(16,0)) AS UnrealProfit\n" +
+            "FROM tcnud AS t INNER JOIN mstmb AS m ON t.Stock=m.Stock\n" +
+            "WHERE t.BranchNo=?1 AND t.CustSeq=?2 AND t.TradeDate=?3 AND t.DocSeq=?4", nativeQuery = true)
     List<Map> getUnrealAddDetail(String branchNo, String custSeq, String tradeDate, String DocSeq);
 
 }

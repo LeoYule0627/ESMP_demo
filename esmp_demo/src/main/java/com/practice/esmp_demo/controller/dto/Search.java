@@ -9,13 +9,13 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Data
 public class Search {
     @NotEmpty
-    @Length(min = 4, max = 4, message = "不足四碼")
+    @Length(min = 4, max = 4, message = "分公司代號不足四碼")
     private String branchNo;
     @NotEmpty
-    @Length(min = 2, max = 2, message = "不足兩碼")
+    @Length(min = 2, max = 2, message = "客戶代號不足兩碼")
     private String custSeq;
 
     private String stock;

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -31,19 +32,19 @@ public class Hcmio {
     @Column(name = "BsType")
     private char bsType;
     @Column(name = "Price")
-    private double price;
+    private BigDecimal price;
     @Column(name = "Qty")
     private int qty;
     @Column(name = "Amt")
-    private double amt;
+    private BigDecimal amt;
     @Column(name = "Fee")
-    private int fee;
+    private BigDecimal fee;
     @Column(name = "Tax")
-    private int tax;
+    private BigDecimal tax;
     @Column(name = "StinTax")
     private int stinTax;
     @Column(name = "NetAmt")
-    private double netAmt;
+    private BigDecimal netAmt;
     @Column(name = "ModDate")
     private String modDate;
     @Column(name = "ModTime")
