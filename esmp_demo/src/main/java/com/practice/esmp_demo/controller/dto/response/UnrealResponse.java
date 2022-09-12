@@ -17,6 +17,4 @@ public class UnrealResponse {
         object.put("message", message);
         return object;
     }
-
-
 }

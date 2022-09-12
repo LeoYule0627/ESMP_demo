@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MstmbRepository extends JpaRepository<Mstmb, Integer> {
 
-    Mstmb findAllByStock(String stock);
+    Mstmb findByStock(String stock);
 }

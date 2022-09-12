@@ -5,10 +5,8 @@ import com.practice.esmp_demo.model.HcmioRepository;
 import com.practice.esmp_demo.model.entity.Hcmio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 public class HcmioService {

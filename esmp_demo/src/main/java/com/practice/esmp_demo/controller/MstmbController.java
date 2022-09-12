@@ -1,13 +1,13 @@
 package com.practice.esmp_demo.controller;
 
 import com.practice.esmp_demo.controller.dto.UpdateMstmb;
-import com.practice.esmp_demo.model.entity.Mstmb;
+import com.practice.esmp_demo.controller.dto.response.SearchStock;
 import com.practice.esmp_demo.service.MstmbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @Controller
 @RestController
@@ -17,15 +17,15 @@ public class MstmbController {
     @Autowired
     MstmbService mstmbService;
 
-    @GetMapping()
-    public List<Mstmb> getMstmbAll() {
-        List<Mstmb> response = this.mstmbService.getMstmbAll();
+    @PostMapping()
+    public Map getMstmbAll(@RequestBody SearchStock searchStock) {
+        Map response = this.mstmbService.getMstmbCache(searchStock);
         return response;
     }
 
-    @PutMapping("/update/{stock}")
-    public String updateMstmb(@PathVariable String stock, @RequestBody UpdateMstmb updateMstmb) {
-        String response = this.mstmbService.updateMstmb(stock, updateMstmb);
+    @PutMapping("/update")
+    public String updateMstmb(@RequestBody UpdateMstmb updateMstmb) {
+        String response = this.mstmbService.updateMstmb(updateMstmb);
         return response;
     }
 }
