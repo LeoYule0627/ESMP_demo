@@ -19,7 +19,7 @@ public class Search {
     @NotBlank
     @Length(min = 2, max = 2, message = "客戶代號兩碼")
     private String custSeq;
-    @Length(min = 0, max = 4, message = "股票代號四碼")
+    @Length(min = 0, max = 6, message = "股票代號一到六碼")
     private String stock;
     @NotNull
     private double max;

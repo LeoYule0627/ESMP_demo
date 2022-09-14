@@ -27,7 +27,7 @@ public class AddHcmioAndTcnud {
     @Pattern(regexp = "^[(?=.[A-Z])(?=.[A-Z])]{2}[(?=.\\d)]{3}", message = "前2個大寫英文，後3個數字")
     private String docSeq;
     @NotBlank
-    @Length(min = 4, max = 4, message = "股票代號四碼")
+    @Length(min = 1, max = 6, message = "股票代號一到六碼")
     private String stock;
     @NotNull
     @DecimalMin(value = "0.00", message = "價格需大於0.00")

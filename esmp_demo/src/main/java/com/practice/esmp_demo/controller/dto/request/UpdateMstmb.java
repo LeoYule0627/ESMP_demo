@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 @Data
 public class UpdateMstmb {
     @NotBlank
-    @Length(min = 4, max = 4, message = "股票代號四碼")
+    @Length(min = 1, max = 6, message = "股票代號一~六碼")
     private String stock;
     @NotNull
     @DecimalMin(value = "0.00", message = "現價需大於0.00")

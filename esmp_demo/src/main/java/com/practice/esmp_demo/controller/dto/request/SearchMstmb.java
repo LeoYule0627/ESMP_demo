@@ -14,6 +14,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class SearchMstmb {
     @NotBlank
-    @Length(min = 4, max = 4, message = "股票代號四碼")
+    @Length(min = 1, max = 6, message = "股票代號一~六碼")
     private String stock;
 }
