@@ -49,16 +49,19 @@ public class Calculate {
         return cost;
     }
 
+    public BigDecimal getNowPrice(BigDecimal nowPrice){
+        return nowPrice.setScale(2,RoundingMode.DOWN);
+    }
 
     public String getModDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Calendar c1 = Calendar.getInstance();
-        return dateFormat.format(c1.getTime());
+        Calendar modDate = Calendar.getInstance();
+        return dateFormat.format(modDate.getTime());
     }
 
     public String getModTime() {
-        Format timeFormat = new SimpleDateFormat("HHmmss");
-        return timeFormat.format(new Date());
+        Format modTime = new SimpleDateFormat("HHmmss");
+        return modTime.format(new Date());
     }
 
 

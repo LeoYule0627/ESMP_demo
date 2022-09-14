@@ -1,4 +1,4 @@
-package com.practice.esmp_demo.controller.dto;
+package com.practice.esmp_demo.controller.dto.request;
 
 import lombok.Data;
 import lombok.Getter;
@@ -24,16 +24,16 @@ public class AddHcmioAndTcnud {
     @Length(min = 2, max = 2, message = "客戶代號兩碼")
     private String custSeq;
     @NotBlank
-    @Pattern(regexp = "^[(?=.[A-Z])(?=.[A-Z])(?=.\\d)]{5}", message = "2個大寫英文和3個數字")
+    @Pattern(regexp = "^[(?=.[A-Z])(?=.[A-Z])]{2}[(?=.\\d)]{3}", message = "前2個大寫英文，後3個數字")
     private String docSeq;
     @NotBlank
     @Length(min = 4, max = 4, message = "股票代號四碼")
     private String stock;
     @NotNull
     @DecimalMin(value = "0.00", message = "價格需大於0.00")
+    @Digits(integer = 6,fraction = 2,message = "價格格式不正確")
     private BigDecimal price;
     @NotNull
     @Min(value = 1000, message = "股數需大於1000")
     private int qty;
-    private String modUser;
 }

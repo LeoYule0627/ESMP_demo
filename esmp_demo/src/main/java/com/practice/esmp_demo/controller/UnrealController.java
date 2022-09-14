@@ -1,7 +1,8 @@
 package com.practice.esmp_demo.controller;
 
-import com.practice.esmp_demo.controller.dto.AddHcmioAndTcnud;
-import com.practice.esmp_demo.controller.dto.Search;
+import com.practice.esmp_demo.controller.dto.request.AddHcmioAndTcnud;
+import com.practice.esmp_demo.controller.dto.request.Search;
+import com.practice.esmp_demo.controller.dto.request.SearchDeliveryFee;
 import com.practice.esmp_demo.controller.dto.response.UnrealResponse;
 import com.practice.esmp_demo.service.UnrealService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class UnrealController {
                     .body(response);
         } catch (Exception e) {
             System.out.println(e);
-            response = UnrealResponse.setUnrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
+            response = UnrealResponse.unrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
@@ -56,7 +57,7 @@ public class UnrealController {
                     .body(response);
         } catch (Exception e) {
             System.out.println(e);
-            response = UnrealResponse.setUnrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
+            response = UnrealResponse.unrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
@@ -75,7 +76,7 @@ public class UnrealController {
                     .body(response);
         } catch (Exception e) {
             System.out.println(e);
-            response = UnrealResponse.setUnrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
+            response = UnrealResponse.unrealResponse(null, "005", "伺服器忙碌中，請稍後嘗試");
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
@@ -83,11 +84,21 @@ public class UnrealController {
         }
     }
 
+    @PostMapping("/delivery")
+    public ResponseEntity<LinkedHashMap> getDeliveryFee(@RequestBody @Valid SearchDeliveryFee request){
+        LinkedHashMap response = this.unrealService.getDeliveryFee(request);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<LinkedHashMap> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
-        StringBuilder sb = new StringBuilder();
-        exception.getBindingResult().getAllErrors().stream().forEach(objectError -> sb.append(objectError.getDefaultMessage()).append(", "));
-        LinkedHashMap response = UnrealResponse.setUnrealResponse(null, "002", sb.toString());
+        StringBuilder stringBuilder = new StringBuilder();
+        exception.getBindingResult().getAllErrors().stream().forEach(error -> stringBuilder.append(error.getDefaultMessage()).append(", "));
+        LinkedHashMap response = UnrealResponse.unrealResponse(null, "002", stringBuilder.toString());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)

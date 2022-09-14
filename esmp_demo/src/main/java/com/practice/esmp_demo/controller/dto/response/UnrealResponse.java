@@ -7,12 +7,24 @@ import java.util.List;
 public class UnrealResponse {
 
 
-    public static LinkedHashMap setUnrealResponse(List<LinkedHashMap> response, String responseCode, String message) {
+    public static LinkedHashMap unrealResponse(List<LinkedHashMap> response, String responseCode, String message) {
         LinkedHashMap object = new LinkedHashMap<>();
         if (response == null) {
             response = new ArrayList<>();
         }
         object.put("resultList", response);
+        object.put("responseCode", responseCode);
+        object.put("message", message);
+        return object;
+    }
+
+    public static LinkedHashMap deliveryFeeResponse(Object sum, List<LinkedHashMap> response, String responseCode, String message) {
+        LinkedHashMap object = new LinkedHashMap<>();
+        if (response == null) {
+            response = new ArrayList<>();
+        }
+        object.put("sumDeliveryFee",sum);
+        object.put("detailList", response);
         object.put("responseCode", responseCode);
         object.put("message", message);
         return object;

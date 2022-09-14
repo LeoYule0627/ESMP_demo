@@ -1,6 +1,6 @@
 package com.practice.esmp_demo.service;
 
-import com.practice.esmp_demo.controller.dto.AddHcmioAndTcnud;
+import com.practice.esmp_demo.controller.dto.request.AddHcmioAndTcnud;
 import com.practice.esmp_demo.model.HcmioRepository;
 import com.practice.esmp_demo.model.entity.Hcmio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class HcmioService {
             createHcmio.setNetAmt(calculate.getNetAmt(qty, price, createHcmio.getBsType()));
             createHcmio.setModDate(calculate.getModDate());
             createHcmio.setModTime(calculate.getModTime());
-            createHcmio.setModUser(request.getModUser());
+            createHcmio.setModUser("LEO"); // 暫定
             this.hcmioRepository.save(createHcmio);
             return true;
         } catch (Exception e) {

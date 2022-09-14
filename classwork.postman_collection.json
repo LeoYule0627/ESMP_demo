@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "b3f714f0-7860-4116-bae8-38d976f68a8d",
+		"name": "ClassWork_1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22480602"
+	},
+	"item": [
+		{
+			"name": "1 Detail, 2 Sum",
+			"item": [
+				{
+					"name": "Detail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"branchNo\": \"F62W\",\r\n    \"custSeq\": \"02\",\r\n    \"stock\":\"2357\",\r\n    \"max\": 0,\r\n    \"min\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/unreal/detail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"unreal",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sum",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"branchNo\": \"F62W\",\r\n    \"custSeq\":  \"02\",\r\n    \"stock\": \"6214\",\r\n    \"max\": 0,\r\n    \"min\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/unreal/sum",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"unreal",
+								"sum"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3 Add Tcnud && Hcmio",
+			"item": [
+				{
+					"name": "Create HCMIO && TCNUD",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tradeDate\":\"20220912\",\r\n    \"branchNo\":\"F62W\",\r\n    \"custSeq\":\"02\",\r\n    \"docSeq\":\"ZZ001\",\r\n    \"stock\":\"6214\",\r\n    \"price\":88.88,\r\n    \"qty\":1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/unreal/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"unreal",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4 Cache",
+			"item": [
+				{
+					"name": "update mstmb cachePut",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stock\": \"6214\",\r\n    \"curPrice\":99.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mstmb/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mstmb",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find stock cache",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stock\": \"6214\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mstmb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mstmb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5 DeliveryFee",
+			"item": [
+				{
+					"name": "DeliveryFee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"branchNo\": \"F62W\",\r\n    \"custSeq\": \"02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/unreal/delivery",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"unreal",
+								"delivery"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
