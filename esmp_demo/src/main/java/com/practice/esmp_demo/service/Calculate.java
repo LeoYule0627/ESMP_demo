@@ -22,21 +22,21 @@ public class Calculate {
 
     public BigDecimal getFee(BigDecimal qty, BigDecimal buyPrice) {
         return buyPrice.multiply(qty)
-                .multiply(feeRate).setScale(0, RoundingMode.DOWN);
+                .multiply(feeRate).setScale(0, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getTax(BigDecimal qty, BigDecimal buyPrice) {
         return buyPrice.multiply(qty)
-                .multiply(taxRate).setScale(0, RoundingMode.DOWN);
+                .multiply(taxRate).setScale(0, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getNetAmt(BigDecimal qty, BigDecimal buyPrice, char BsType) {
         BigDecimal amt = buyPrice.multiply(qty);
-        BigDecimal fee = amt.multiply(feeRate).setScale(0, RoundingMode.DOWN);
-        BigDecimal tax = amt.multiply(taxRate).setScale(0, RoundingMode.DOWN);
+        BigDecimal fee = amt.multiply(feeRate).setScale(0, RoundingMode.HALF_UP);
+        BigDecimal tax = amt.multiply(taxRate).setScale(0, RoundingMode.HALF_UP);
         System.out.println(BsType);
         if (BsType == 'B') {
-            return amt.subtract(fee).setScale(2, RoundingMode.HALF_UP);
+            return amt.add(fee).setScale(2, RoundingMode.HALF_UP);
         } else {
             return amt.subtract(fee).subtract(tax).setScale(2, RoundingMode.HALF_UP);
         }
@@ -44,8 +44,8 @@ public class Calculate {
 
     public BigDecimal getCost(BigDecimal qty, BigDecimal buyPrice) {
         BigDecimal amt = buyPrice.multiply(qty);
-        BigDecimal fee = amt.multiply(feeRate).setScale(0, RoundingMode.DOWN);
-        BigDecimal cost = amt.subtract(fee).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal fee = amt.multiply(feeRate).setScale(0, RoundingMode.HALF_UP);
+        BigDecimal cost = amt.add(fee).setScale(2, RoundingMode.HALF_UP);
         return cost;
     }
 
