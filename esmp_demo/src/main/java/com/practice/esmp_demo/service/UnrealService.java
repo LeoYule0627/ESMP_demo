@@ -92,14 +92,14 @@ public class UnrealService {
                                 resultList.add(setSumList(sumList, detailList));
                             }
                         }
+                        // 查詢獲利區間後，沒有資料
+                        if (resultList.size() == 0) {
+                            return UnrealResponse.unrealResponse(null, "001", "查無結果");
+                        }
                     }
                     // 情況一之二 : 有股票，沒有獲利率
                     else {
                         resultList.add(setSumList(sumList, detailList));
-                    }
-                    // 查詢獲利區間後，沒有資料
-                    if (resultList.size() == 0) {
-                        return UnrealResponse.unrealResponse(null, "001", "查無結果");
                     }
                 } else {
                     return UnrealResponse.unrealResponse(null, "001", "查無結果");
@@ -132,10 +132,10 @@ public class UnrealService {
                         else {
                             resultList.add(setSumList(sumList, detailList));
                         }
-                        // 查詢獲利區間後，沒有資料
-                        if (resultList.size() == 0) {
-                            return UnrealResponse.unrealResponse(null, "001", "查無結果");
-                        }
+                    }
+                    // 查詢獲利區間後，沒有資料
+                    if (resultList.size() == 0) {
+                        return UnrealResponse.unrealResponse(null, "001", "查無結果");
                     }
                 } else {
                     return UnrealResponse.unrealResponse(null, "001", "查無結果");
@@ -147,7 +147,7 @@ public class UnrealService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public LinkedHashMap unrealAdd(AddHcmioAndTcnud request) throws Exception {
         try {
             List<Map> check = testRepository.getUnrealAddDetail(request.getBranchNo(), request.getCustSeq(), request.getTradeDate(), request.getDocSeq());
@@ -172,8 +172,6 @@ public class UnrealService {
         }
     }
 
-
-    @SneakyThrows
     public LinkedHashMap getDeliveryFee(SearchDeliveryFee request) {
         int count = 2; // T + 2
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
